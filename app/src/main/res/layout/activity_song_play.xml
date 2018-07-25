@@ -79,7 +79,7 @@
         </LinearLayout>
 
         <SeekBar
-            android:id="@+id/soneSeekBar"
+            android:id="@+id/songSeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10dp"

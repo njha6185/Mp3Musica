@@ -1,12 +1,14 @@
 package com.example.nitishkumar.mp3musica;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by NITISH KUMAR on 11-07-2018.
  */
 
-public class AudioModel {
+public class AudioModel implements Parcelable{
 
     private long id;
     private String title;
@@ -22,6 +24,26 @@ public class AudioModel {
         this.image = image;
         this.path = path;
     }
+
+    protected AudioModel(Parcel in) {
+        id = in.readLong();
+        title = in.readString();
+        artist = in.readString();
+        image = in.readParcelable(Bitmap.class.getClassLoader());
+        path = in.readString();
+    }
+
+    public static final Creator<AudioModel> CREATOR = new Creator<AudioModel>() {
+        @Override
+        public AudioModel createFromParcel(Parcel in) {
+            return new AudioModel(in);
+        }
+
+        @Override
+        public AudioModel[] newArray(int size) {
+            return new AudioModel[size];
+        }
+    };
 
     public void setID(long id) {
         this.id = id;
@@ -62,5 +84,19 @@ public class AudioModel {
 
     public String getPath() {
         return path;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
+        parcel.writeString(title);
+        parcel.writeString(artist);
+        parcel.writeParcelable(image, i);
+        parcel.writeString(path);
     }
 }

@@ -130,6 +130,7 @@ public class SongListActivity extends AppCompatActivity implements OnItemClickLi
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(SongListActivity.this, SongPlayActivity.class);
         intent.putExtra("position", i);
+        intent.putExtra("object", songlist);
         startActivity(intent);
     }
 }
