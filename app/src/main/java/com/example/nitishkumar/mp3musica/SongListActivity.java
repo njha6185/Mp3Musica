@@ -43,13 +43,13 @@ public class SongListActivity extends AppCompatActivity implements OnItemClickLi
             this.finish();
         }
     }
-
+/*************** initialiases Views *************************************/
     public void init()
     {
         songView = (ListView)findViewById(R.id.listOfSong);
         songlist = new ArrayList<>();
     }
-
+/************************* fetch songs from external storage *******************************/
     public void getSongList()
     {
         ContentResolver musicResolver = getContentResolver();
@@ -80,7 +80,7 @@ public class SongListActivity extends AppCompatActivity implements OnItemClickLi
             musicCursor.close();
         }
     }
-
+/************************* It sortlist the song and list it in list View *************/
     public void sortAndSetSongToListView()
     {
         Collections.sort(songlist, new Comparator<AudioModel>() {
@@ -92,7 +92,7 @@ public class SongListActivity extends AppCompatActivity implements OnItemClickLi
         AudioAdapter audioAdapter = new AudioAdapter(this, songlist);
         songView.setAdapter(audioAdapter);
     }
-
+/******************************** Check storge permission is granted or Not ********************************/
     public boolean isStoragePermissionGranted()
     {
         if (Build.VERSION.SDK_INT >= 23)
@@ -112,7 +112,7 @@ public class SongListActivity extends AppCompatActivity implements OnItemClickLi
             return true;
         }
     }
-
+/******************************* Check whether Storage permission is granted or not **************************/
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -125,7 +125,7 @@ public class SongListActivity extends AppCompatActivity implements OnItemClickLi
             this.finish();
         }
     }
-
+/*********************** it detects the clicked item from list and send to playSomg activity **********************/
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(SongListActivity.this, SongPlayActivity.class);

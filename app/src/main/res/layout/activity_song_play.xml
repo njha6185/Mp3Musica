@@ -8,15 +8,30 @@
     android:background="@color/black_color"
     tools:context="com.example.nitishkumar.mp3musica.SongPlayActivity">
 
-    <ImageView
-        android:id="@+id/albumImageView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_0dp"
-        android:layout_weight="0.6"
-        android:padding="@dimen/_10dp"
-        android:src="@drawable/ic_music_note_black_24dp"
-        android:layout_margin="@dimen/_20dp"
-        android:contentDescription="@string/image_of_song" />
+        android:layout_weight="0.6">
+
+        <ImageView
+            android:id="@+id/albumImageView"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_music_note_black_24dp"
+            android:layout_margin="@dimen/_20dp"
+            android:contentDescription="@string/image_of_song" />
+        <Button
+            android:id="@+id/songlistBackButton"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:background="@drawable/ic_list_black_24dp"
+            android:layout_weight="0.2"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

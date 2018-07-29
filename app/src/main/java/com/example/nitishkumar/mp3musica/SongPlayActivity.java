@@ -1,5 +1,6 @@
 package com.example.nitishkumar.mp3musica;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
@@ -31,18 +32,23 @@ public class SongPlayActivity extends AppCompatActivity implements View.OnClickL
     private Button nextSong;
     private Button previousSong;
     private boolean playPauseStaus;
+    private Button songListActivityButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_play);
+
         init();
         getSongPosition();
-        setSongDetailsToUI();
+
+
         playSong.setOnClickListener(this);
         nextSong.setOnClickListener(this);
         previousSong.setOnClickListener(this);
+        songListActivityButton.setOnClickListener(this);
     }
-
+/********************* IT recieves and extract data Coming from List Activity ********************/
     public void getSongPosition()
     {
         Bundle bundle = getIntent().getExtras();
@@ -50,7 +56,7 @@ public class SongPlayActivity extends AppCompatActivity implements View.OnClickL
         songlistObject = bundle.getParcelableArrayList("object");
         Toast.makeText(this, "position : "+ position, Toast.LENGTH_SHORT).show();
     }
-
+/************************** It Set Different Song Data to their Respective Views **************/
     public void setSongDetailsToUI()
     {
         AudioModel audioModel = songlistObject.get(position);
@@ -74,14 +80,14 @@ public class SongPlayActivity extends AppCompatActivity implements View.OnClickL
         long currentTimeOfSong = getCurrentTimeOfSongSeekBar(timeduration);
         currentSongTimeText.setText(convertMiliSeconfToMinute(currentTimeOfSong));
     }
-
+/********************* It takes SeekBar Current Time ******************************/
     public long getCurrentTimeOfSongSeekBar(long totalTime)
     {
         long currentTime = seekBarForSong.getProgress();
         currentTime = (totalTime/100) * currentTime;
         return currentTime;
     }
-
+/*********************************** It Converts Millisecond To Hour, Minute, Second format amd return String***********/
     public String convertMiliSeconfToMinute(long timeduration)
     {
         String finalTimeString = "";
@@ -104,7 +110,7 @@ public class SongPlayActivity extends AppCompatActivity implements View.OnClickL
         finalTimeString = finalTimeString + minutes + ":" + secondString;
         return finalTimeString;
     }
-
+/*********************************** It initialises all Views ****************************************/
     public void init()
     {
         songlistObject = new ArrayList<>();
@@ -120,8 +126,9 @@ public class SongPlayActivity extends AppCompatActivity implements View.OnClickL
         nextSong = (Button)findViewById(R.id.nextButton);
         previousSong = (Button)findViewById(R.id.previousButton);
         playPauseStaus = true;
+        songListActivityButton = (Button)findViewById(R.id.songlistBackButton);
     }
-
+/******************* this methods detects various Buttons Clicks ************************************/
     @Override
     public void onClick(View view) {
         switch (view.getId())
@@ -155,6 +162,12 @@ public class SongPlayActivity extends AppCompatActivity implements View.OnClickL
                     position = songlistObject.size() - 1;
                 }
                 setSongDetailsToUI();
+                break;
+
+            case R.id.songlistBackButton:
+                Intent intent = new Intent(SongPlayActivity.this, SongListActivity.class);
+                startActivity(intent);
+                finish();
                 break;
 
             default:
